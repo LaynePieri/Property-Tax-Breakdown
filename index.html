@@ -52,7 +52,24 @@ No personal or financial information is collected, stored, or shared. All calcul
 <hr>
 
 <h2>Enter your estimate</h2>
-<p><strong>Estimated annual property tax paid ($)</strong></p>
+<label for="taxInput">
+  <strong>Estimated annual property tax paid ($)</strong>
+</label>
+<br>
+<input
+  type="number"
+  id="taxInput"
+  placeholder="e.g. 2000"
+  min="0"
+  step="1"
+>
+<br><br>
+
+<button onclick="calculateBreakdown()">
+  Calculate my estimate
+</button>
+
+<div id="results"></div>
 
 <p>
 You can enter the amount from your property tax statement, or use a rough estimate.
@@ -203,6 +220,48 @@ I am not affiliated with the City of Marshalltown in any official capacity for t
 Contact:<br>
 <strong>Email:</strong> layne.pieri@pm.me
 </p>
+<script>
+function calculateBreakdown() {
+  var input = document.getElementById("taxInput").value;
+  var total = Number(input);
 
+  if (!total || total <= 0) {
+    alert("Please enter a positive dollar amount.");
+    return;
+  }
+
+  // FY26 Governmental Activities percentages (locked)
+  var categories = [
+    { name: "Public Safety", pct: 0.2030 },
+    { name: "Public Works", pct: 0.0965 },
+    { name: "Health & Social Services", pct: 0.0383 },
+    { name: "Culture & Recreation", pct: 0.0767 },
+    { name: "Community & Economic Development", pct: 0.0749 },
+    { name: "General Government", pct: 0.0346 },
+    { name: "Debt Service", pct: 0.1162 },
+    { name: "Capital Projects", pct: 0.3598 } // last category handles rounding
+  ];
+
+  var resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "<h3>Your estimated breakdown</h3>";
+
+  var runningTotal = 0;
+
+  for (var i = 0; i < categories.length; i++) {
+    var amount;
+
+    if (i < categories.length - 1) {
+      amount = Math.round(total * categories[i].pct);
+      runningTotal += amount;
+    } else {
+      // last category absorbs rounding difference
+      amount = total - runningTotal;
+    }
+
+    resultsDiv.innerHTML +=
+      "<p><strong>" + categories[i].name + ":</strong> $" + amount + "</p>";
+  }
+}
+</script>
 </body>
 </html>
