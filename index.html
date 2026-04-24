@@ -52,10 +52,13 @@ No personal or financial information is collected, stored, or shared. All calcul
 <hr>
 
 <h2>Enter your estimate</h2>
-<label for="taxInput">
-  <strong>Estimated annual property tax paid ($)</strong>
-</label>
-<br>
+<p>
+<strong>Estimated annual property tax paid ($)</strong><br>
+<span style="font-size: 0.9em;">
+Based on the FY26 adopted City of Marshalltown budget (approved April 28, 2025).
+</span>
+</p>
+
 <input
   type="number"
   id="taxInput"
@@ -68,6 +71,8 @@ No personal or financial information is collected, stored, or shared. All calcul
 <button onclick="calculateBreakdown()">
   Calculate my estimate
 </button>
+
+<hr>
 
 <div id="results"></div>
 
@@ -239,12 +244,17 @@ function calculateBreakdown() {
     { name: "Community & Economic Development", pct: 0.0749 },
     { name: "General Government", pct: 0.0346 },
     { name: "Debt Service", pct: 0.1162 },
-    { name: "Capital Projects", pct: 0.3598 } // last category handles rounding
+    { name: "Capital Projects", pct: 0.3598 } // absorbs rounding difference
   ];
 
   var resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "<h3>Your estimated breakdown</h3>";
+  resultsDiv.innerHTML = ""; // clear previous results
 
+  var heading = document.createElement("h3");
+  heading.textContent = "Your estimated breakdown";
+  resultsDiv.appendChild(heading);
+
+  var list = document.createElement("ul");
   var runningTotal = 0;
 
   for (var i = 0; i < categories.length; i++) {
@@ -258,9 +268,20 @@ function calculateBreakdown() {
       amount = total - runningTotal;
     }
 
-    resultsDiv.innerHTML +=
-      "<p><strong>" + categories[i].name + ":</strong> $" + amount + "</p>";
+    var item = document.createElement("li");
+    item.innerHTML = "<strong>" + categories[i].name + ":</strong> $" + amount;
+    list.appendChild(item);
   }
+
+  resultsDiv.appendChild(list);
+
+  var note = document.createElement("p");
+  note.style.fontSize = "0.9em";
+  note.innerHTML =
+    "<em>Note:</em> These amounts are estimates shown in whole dollars. " +
+    "Small rounding differences are handled by adjusting the final category so " +
+    "the total always matches the amount you entered.";
+  resultsDiv.appendChild(note);
 }
 </script>
 </body>
