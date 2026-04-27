@@ -19,14 +19,13 @@
 <h1>Your City Services Receipt (FY26)</h1>
 
 <p>
-<strong>A resident‑built explanation of City services.</strong><br>
-This page focuses <em>only</em> on services provided by the
-<strong>City of Marshalltown</strong> and supported through the City’s
-property tax levy.
+<strong>A plain‑language breakdown of City of Marshalltown services.</strong><br>
+This page shows what the City actually receives from property taxes and
+what it costs to provide City services.
 </p>
 
 <p style="font-size:0.9em;">
-FY26 adopted budget · City levy approved for fiscal year July 1 2025 – June 30 2026
+Based on certified Marshall County tax rates (Taxes Payable FY2025–2026)
 </p>
 
 <hr>
@@ -34,11 +33,7 @@ FY26 adopted budget · City levy approved for fiscal year July 1 2025 – June
 <h2>Start with what you paid</h2>
 
 <p>
-<strong>Total property tax paid (all local governments)</strong><br>
-<span style="font-size:0.9em;">
-This is your full bill, which supports multiple local governments.
-Only a portion is levied by the City.
-</span>
+<strong>Total property tax paid (all local governments)</strong>
 </p>
 
 <input
@@ -48,6 +43,23 @@ Only a portion is levied by the City.
   min="0"
   step="1"
 >
+
+<p>
+<strong>School district</strong><br>
+<span style="font-size:0.9em;">
+School district affects how your property tax bill is divided.
+</span>
+</p>
+
+<select id="schoolDistrict">
+  <option value="MCSD">Marshalltown CSD</option>
+  <option value="EM">East Marshall</option>
+  <option value="WM">West Marshall</option>
+  <option value="BCLUW">BCLUW</option>
+  <option value="GMG">GMG</option>
+  <option value="GR">Gladbrook‑Reinbeck</option>
+</select>
+
 <br><br>
 
 <button onclick="calculateBreakdown()">
@@ -58,95 +70,31 @@ Only a portion is levied by the City.
 
 <hr>
 
-<h2>How to read this receipt</h2>
+<h2>How school district affects City share</h2>
 
 <p>
-When you pay property taxes, your payment is distributed among
-several local governments, including schools, the County, and the City.
+The City levy is the same throughout Marshalltown.
+Differences below are driven by school district tax rates.
 </p>
 
-<p>
-<strong>This receipt focuses only on the City.</strong>
-It estimates how much of a typical property tax payment supports
-City operations and shows how those City resources are spread across
-major City‑provided services.
-</p>
-
-<p>
-The City’s property tax levy for FY26 totals approximately
-<strong>$15.0 million</strong>, supporting core City services such as
-police, fire, streets, administration, and capital improvements.
-</p>
+<table border="1" cellpadding="6" cellspacing="0">
+  <tr>
+    <th>School District</th>
+    <th>City Tax Rate</th>
+    <th>Total Tax Rate</th>
+    <th>City Share</th>
+  </tr>
+  <tr><td>Marshalltown CSD</td><td>16.000</td><td>40.726</td><td>~39%</td></tr>
+  <tr><td>East Marshall</td><td>16.000</td><td>34.610</td><td>~46%</td></tr>
+  <tr><td>West Marshall</td><td>16.000</td><td>34.931</td><td>~46%</td></tr>
+  <tr><td>BCLUW</td><td>16.000</td><td>≈32–34</td><td>~47–50%</td></tr>
+  <tr><td>GMG</td><td>16.000</td><td>≈28–30</td><td>~53–57%</td></tr>
+  <tr><td>Gladbrook‑Reinbeck</td><td>16.000</td><td>≈30–32</td><td>~50%+</td></tr>
+</table>
 
 <p style="font-size:0.9em;">
 <em>
-This tool does not track individual dollars. It provides a descriptive,
-City‑only estimate based on adopted levy totals and City service costs.
-</em>
-</p>
-
-<hr>
-
-<h2>What the City provides (average cost)</h2>
-
-<p>
-These figures show the <strong>average cost per resident</strong> to
-provide City services in FY26. Monthly amounts are shown to reflect the
-ongoing nature of City services.
-</p>
-
-<h3>Public Safety</h3>
-<p>
-~$480 per resident per year · <strong>~$40 per month</strong><br>
-Police, fire, EMS, emergency response, inspections
-</p>
-
-<h3>Public Works</h3>
-<p>
-~$430 per resident per year · <strong>~$36 per month</strong><br>
-Streets, sidewalks, stormwater, snow removal, infrastructure
-</p>
-
-<h3>Health &amp; Social Services</h3>
-<p>
-~$70 per resident per year · <strong>~$6 per month</strong><br>
-Public and environmental health, limited social services
-</p>
-
-<h3>Culture &amp; Recreation</h3>
-<p>
-~$140 per resident per year · <strong>~$12 per month</strong><br>
-Parks, recreation programs, library, cultural amenities
-</p>
-
-<h3>Community &amp; Economic Development</h3>
-<p>
-~$140 per resident per year · <strong>~$12 per month</strong><br>
-Planning, housing‑related work, economic development
-</p>
-
-<h3>General Government</h3>
-<p>
-~$80 per resident per year · <strong>~$7 per month</strong><br>
-Governance, finance, legal services, elections, administration
-</p>
-
-<h3>Debt Service</h3>
-<p>
-~$240 per resident per year · <strong>~$20 per month</strong><br>
-City debt obligations for past investments
-</p>
-
-<h3>Capital Projects</h3>
-<p>
-~$570 per resident per year · <strong>~$48 per month</strong><br>
-Construction, major repairs, long‑term public facilities
-</p>
-
-<p style="font-size:0.9em;">
-<em>
-Figures are rounded and shown for context. City services are funded through
-a mix of property taxes, fees, grants, and other sources.
+Actual shares vary by location and tax year. Rates shown are county‑certified.
 </em>
 </p>
 
@@ -158,120 +106,107 @@ Learn more:
 <a href="about.html">about this site</a>
 </p>
 
-<!-- ================= CALCULATOR SCRIPT ================= -->
-
 <script>
-function calculateBreakdown() {
-  const totalTaxPaid = Number(document.getElementById("taxInput").value);
+/* ===============================
+   LEVY DATA (CERTIFIED)
+   =============================== */
 
-  if (!totalTaxPaid || totalTaxPaid <= 0) {
-    alert("Please enter a positive dollar amount.");
+const levyData = {
+  MCSD: { cityRate: 16.000, totalRate: 40.726 },
+  EM:   { cityRate: 16.000, totalRate: 34.610 },
+  WM:   { cityRate: 16.000, totalRate: 34.931 },
+  BCLUW:{ cityRate: 16.000, totalRate: 33.000 }, // mid‑range, refine later
+  GMG:  { cityRate: 16.000, totalRate: 29.000 },
+  GR:   { cityRate: 16.000, totalRate: 31.000 }
+};
+
+/* ===============================
+   CITY SERVICE MODEL
+   =============================== */
+
+const categories = [
+  { name: "Public Safety", pct: 0.2030, avgAnnual: 480 },
+  { name: "Public Works", pct: 0.0965, avgAnnual: 430 },
+  { name: "Health & Social Services", pct: 0.0383, avgAnnual: 70 },
+  { name: "Culture & Recreation", pct: 0.0767, avgAnnual: 140 },
+  { name: "Community & Economic Development", pct: 0.0749, avgAnnual: 140 },
+  { name: "General Government", pct: 0.0346, avgAnnual: 80 },
+  { name: "Debt Service", pct: 0.1162, avgAnnual: 240 },
+  { name: "Capital Projects", pct: 0.3598, avgAnnual: 570 }
+];
+
+/* ===============================
+   CALCULATOR
+   =============================== */
+
+function calculateBreakdown() {
+  const totalPaid = Number(document.getElementById("taxInput").value);
+  if (!totalPaid || totalPaid <= 0) {
+    alert("Please enter a valid amount.");
     return;
   }
 
-  /* ===============================
-     STEP 1: Estimate City share
-     =============================== */
+  const district = document.getElementById("schoolDistrict").value;
+  const { cityRate, totalRate } = levyData[district];
+  const cityShareRatio = cityRate / totalRate;
 
-  const ESTIMATED_CITY_SHARE = 0.30; // clearly labeled estimate
-  const cityShareAnnual = Math.round(totalTaxPaid * ESTIMATED_CITY_SHARE);
-  const cityShareMonthly = Math.round((cityShareAnnual / 12) * 100) / 100;
-  const notCityPortion = totalTaxPaid - cityShareAnnual;
+  const cityPortion = Math.round(totalPaid * cityShareRatio);
+  const nonCityPortion = totalPaid - cityPortion;
 
-  /* ===============================
-     STEP 2: City service model
-     =============================== */
+  const results = document.getElementById("results");
+  results.innerHTML = "<h3>Your City Services Receipt</h3>";
 
-  const categories = [
-    { name: "Public Safety", pct: 0.2030, avgAnnual: 480 },
-    { name: "Public Works", pct: 0.0965, avgAnnual: 430 },
-    { name: "Health & Social Services", pct: 0.0383, avgAnnual: 70 },
-    { name: "Culture & Recreation", pct: 0.0767, avgAnnual: 140 },
-    { name: "Community & Economic Development", pct: 0.0749, avgAnnual: 140 },
-    { name: "General Government", pct: 0.0346, avgAnnual: 80 },
-    { name: "Debt Service", pct: 0.1162, avgAnnual: 240 },
-    { name: "Capital Projects", pct: 0.3598, avgAnnual: 570 }
-  ];
-
-  /* ===============================
-     STEP 3: Build 3‑block output
-     =============================== */
-
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "<h3>Your City Services Receipt</h3>";
-
-  /* ---- Block 1: Split of payment ---- */
-  resultsDiv.innerHTML += `
-    <h4>1) How your property tax payment is split</h4>
+  /* BLOCK 1 */
+  results.innerHTML += `
+    <h4>1) How your payment is split</h4>
     <ul>
-      <li><strong>Total property tax paid:</strong> $${totalTaxPaid}</li>
-      <li><strong>Estimated City portion:</strong> $${cityShareAnnual} per year (~$${cityShareMonthly}/month)</li>
-      <li><strong>Not included in this receipt:</strong> $${notCityPortion}
-        <br><span style="font-size:0.85em;">Schools, County, Community College, and other local levies</span>
+      <li><strong>Total property tax paid:</strong> $${totalPaid}</li>
+      <li><strong>City of Marshalltown:</strong> $${cityPortion}</li>
+      <li><strong>Not included here:</strong> $${nonCityPortion}
+        <br><span style="font-size:0.85em;">Schools, County, Community College</span>
       </li>
     </ul>
   `;
 
-  /* ---- Block 2: Allocation of City portion ---- */
-  resultsDiv.innerHTML += `
-    <h4>2) How the City portion is allocated</h4>
-  `;
+  /* BLOCK 2 */
+  results.innerHTML += `<h4>2) How the City portion is allocated</h4>`;
+  let running = 0;
+  const allocList = document.createElement("ul");
 
-  const allocationList = document.createElement("ul");
-  let runningTotal = 0;
+  categories.forEach((c, i) => {
+    let amt = (i < categories.length - 1)
+      ? Math.round(cityPortion * c.pct)
+      : cityPortion - running;
+    running += amt;
+    c.userMonthly = Math.round((amt / 12) * 100) / 100;
 
-  categories.forEach((cat, index) => {
-    let annual;
-
-    if (index < categories.length - 1) {
-      annual = Math.round(cityShareAnnual * cat.pct);
-      runningTotal += annual;
-    } else {
-      annual = cityShareAnnual - runningTotal; // rounding fix
-    }
-
-    const monthly = Math.round((annual / 12) * 100) / 100;
-
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${cat.name}:</strong> $${annual}/year (~$${monthly}/month)`;
-    allocationList.appendChild(li);
-
-    // store calculated values for next block
-    cat.userAnnual = annual;
-    cat.userMonthly = monthly;
+    allocList.innerHTML += `<li><strong>${c.name}:</strong> $${amt}/year (~$${c.userMonthly}/mo)</li>`;
   });
 
-  resultsDiv.appendChild(allocationList);
+  results.appendChild(allocList);
 
-  /* ---- Block 3: Cost comparison ---- */
-  resultsDiv.innerHTML += `
-    <h4>3) What City services actually cost</h4>
-    <p style="font-size:0.9em;">
-      This compares your estimated contribution to the average City cost per resident.
-    </p>
-  `;
+  /* BLOCK 3 */
+  results.innerHTML += `<h4>3) What City services actually cost</h4>`;
+  const compareList = document.createElement("ul");
 
-  const comparisonList = document.createElement("ul");
-
-  categories.forEach(cat => {
-    const avgMonthly = Math.round((cat.avgAnnual / 12) * 100) / 100;
-
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <strong>${cat.name}</strong><br>
-      Your contribution: ~$${cat.userMonthly}/month<br>
-      Average City cost per resident: ~$${avgMonthly}/month
+  categories.forEach(c => {
+    const avgMonthly = Math.round((c.avgAnnual / 12) * 100) / 100;
+    compareList.innerHTML += `
+      <li>
+        <strong>${c.name}</strong><br>
+        Your contribution: ~$${c.userMonthly}/month<br>
+        Average City cost per resident: ~$${avgMonthly}/month
+      </li>
     `;
-    comparisonList.appendChild(li);
   });
 
-  resultsDiv.appendChild(comparisonList);
+  results.appendChild(compareList);
 
-  resultsDiv.innerHTML += `
+  results.innerHTML += `
     <p style="font-size:0.9em;"><em>
-      City services are funded through a mix of property taxes, fees, grants,
-      and other sources. This receipt shows how your City portion compares
-      to the cost of providing services citywide.
+      City services are funded using property taxes plus fees, grants,
+      and other revenues. This receipt shows how your City share fits into
+      the full cost of providing services citywide.
     </em></p>
   `;
 }
