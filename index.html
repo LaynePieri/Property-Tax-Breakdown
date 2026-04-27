@@ -19,12 +19,13 @@
 <h1>Your City Services Receipt (FY26)</h1>
 
 <p>
-<strong>A resident‑built estimate</strong> to help you understand what city services
-cost overall — and how your property tax contribution fits into that system.
+<strong>A resident‑built cost breakdown</strong> showing what it costs to provide city
+services overall — and how your property tax contribution compares, using it as a
+reference amount.
 </p>
 
 <p style="font-size: 0.9em;">
-FY26 adopted budget · Approved April&nbsp;28,&nbsp;2025 · Version&nbsp;0.8
+FY26 adopted budget · Approved April&nbsp;28,&nbsp;2025 · Version&nbsp;0.9
 </p>
 
 <hr>
@@ -57,94 +58,89 @@ Used as a reference amount to illustrate citywide service costs
 
 <hr>
 
-<!-- ================= INTERPRETATION ================= -->
-
 <h2>How to read this</h2>
 
 <p>
-City revenues (including property taxes, fees, and state or federal funds)
-are pooled and governed by legal restrictions. Because of this, individual
-tax dollars are <strong>not tracked</strong> to specific services.
+City revenues (property taxes, fees, state and federal funds) are pooled and governed
+by law. Individual tax dollars are <strong>not tracked</strong> to specific services.
 </p>
 
 <p>
-This tool uses your property tax payment as a <strong>reference amount</strong> and
-applies the same proportions the City uses to report <em>total Governmental
-Activities spending</em>. It shows how your contribution compares to the
-<strong>scale of services provided citywide</strong>.
+This tool uses your property tax payment as a <strong>reference amount</strong> and applies
+the same proportions the City uses to report <em>total Governmental Activities spending</em>.
 </p>
 
 <p style="font-size: 0.9em;">
 <em>
-Results are shown in whole dollars. Small rounding differences are handled by
-adjusting the final category so totals always match the amount entered.
+Monthly figures are shown to make costs easier to understand. They represent average
+service costs, not bills or direct charges.
 </em>
 </p>
 
 <hr>
 
-<!-- ================= LAYER 2: SERVICE COSTS ================= -->
+<!-- ================= CITYWIDE SERVICES ================= -->
 
 <h2>What the City delivered in FY26</h2>
 
 <p>
-The figures below show the <strong>total cost</strong> of major city service areas
-in FY26, along with an approximate <strong>cost per resident</strong>.
-Population used: 27,886 residents (U.S. Census 2024 estimate).
+These are the <strong>average costs per resident</strong> to provide major city services,
+based on total FY26 spending and an estimated population of <strong>27,886 residents</strong>.
 </p>
 
-<h3>Public Safety</h3>
-<p>
-Total cost: ~$13.3 million<br>
-Approx. cost per resident: ~$480
-</p>
+<div class="service-block">
+  <h3>Public Safety</h3>
+  <p>
+  ~$480 per resident per year · <strong>~$40 per month</strong><br>
+  Police, fire, EMS, inspections, emergency response
+  </p>
 
-<h3>Public Works</h3>
-<p>
-Total cost: ~$11.9 million<br>
-Approx. cost per resident: ~$430
-</p>
+  <h3>Public Works</h3>
+  <p>
+  ~$430 per resident per year · <strong>~$36 per month</strong><br>
+  Streets, sidewalks, stormwater, snow removal, infrastructure
+  </p>
 
-<h3>Health &amp; Social Services</h3>
-<p>
-Total cost: ~$2.0 million<br>
-Approx. cost per resident: ~$70
-</p>
+  <h3>Health &amp; Social Services</h3>
+  <p>
+  ~$70 per resident per year · <strong>~$6 per month</strong><br>
+  Public and environmental health, limited social programs
+  </p>
 
-<h3>Culture &amp; Recreation</h3>
-<p>
-Total cost: ~$3.9 million<br>
-Approx. cost per resident: ~$140
-</p>
+  <h3>Culture &amp; Recreation</h3>
+  <p>
+  ~$140 per resident per year · <strong>~$12 per month</strong><br>
+  Parks, recreation, library, cultural amenities
+  </p>
 
-<h3>Community &amp; Economic Development</h3>
-<p>
-Total cost: ~$3.9 million<br>
-Approx. cost per resident: ~$140
-</p>
+  <h3>Community &amp; Economic Development</h3>
+  <p>
+  ~$140 per resident per year · <strong>~$12 per month</strong><br>
+  Planning, housing‑related work, economic development
+  </p>
 
-<h3>General Government</h3>
-<p>
-Total cost: ~$2.2 million<br>
-Approx. cost per resident: ~$80
-</p>
+  <h3>General Government</h3>
+  <p>
+  ~$80 per resident per year · <strong>~$7 per month</strong><br>
+  Governance, finance, legal services, elections, administration
+  </p>
 
-<h3>Debt Service</h3>
-<p>
-Total cost: ~$6.7 million<br>
-Approx. cost per resident: ~$240
-</p>
+  <h3>Debt Service</h3>
+  <p>
+  ~$240 per resident per year · <strong>~$20 per month</strong><br>
+  Principal and interest on existing city debt
+  </p>
 
-<h3>Capital Projects</h3>
-<p>
-Total cost: ~$15.9 million<br>
-Approx. cost per resident: ~$570
-</p>
+  <h3>Capital Projects</h3>
+  <p>
+  ~$570 per resident per year · <strong>~$48 per month</strong><br>
+  Construction, major repairs, long‑term public facilities
+  </p>
+</div>
 
 <p style="font-size: 0.9em;">
 <em>
-Costs are rounded and shown for context. Categories group many services and
-are not exhaustive.
+These figures show average service costs, not funding sources or individual bills.
 </em>
 </p>
 
@@ -156,64 +152,68 @@ Learn more:
 <a href="about.html">about this site</a>
 </p>
 
+<!-- ================= CALCULATOR SCRIPT ================= -->
+
 <script>
 function calculateBreakdown() {
-  var input = document.getElementById("taxInput").value;
-  var total = Number(input);
-
+  const total = Number(document.getElementById("taxInput").value);
   if (!total || total <= 0) {
     alert("Please enter a positive dollar amount.");
     return;
   }
 
-  // FY26 Governmental Activities percentages (locked)
-  var categories = [
-    { name: "Public Safety", pct: 0.2030 },
-    { name: "Public Works", pct: 0.0965 },
-    { name: "Health & Social Services", pct: 0.0383 },
-    { name: "Culture & Recreation", pct: 0.0767 },
-    { name: "Community & Economic Development", pct: 0.0749 },
-    { name: "General Government", pct: 0.0346 },
-    { name: "Debt Service", pct: 0.1162 },
-    { name: "Capital Projects", pct: 0.3598 } // absorbs rounding difference
+  const population = 27886;
+
+  const categories = [
+    { name: "Public Safety", pct: 0.2030, annualResident: 480 },
+    { name: "Public Works", pct: 0.0965, annualResident: 430 },
+    { name: "Health & Social Services", pct: 0.0383, annualResident: 70 },
+    { name: "Culture & Recreation", pct: 0.0767, annualResident: 140 },
+    { name: "Community & Economic Development", pct: 0.0749, annualResident: 140 },
+    { name: "General Government", pct: 0.0346, annualResident: 80 },
+    { name: "Debt Service", pct: 0.1162, annualResident: 240 },
+    { name: "Capital Projects", pct: 0.3598, annualResident: 570 }
   ];
 
-  var resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = ""; // clear previous results
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "<h3>Your estimated receipt</h3>";
 
-  var heading = document.createElement("h3");
-  heading.textContent = "Your estimated breakdown";
-  resultsDiv.appendChild(heading);
+  let runningTotal = 0;
+  const list = document.createElement("ul");
 
-  var list = document.createElement("ul");
-  var runningTotal = 0;
-
-  for (var i = 0; i < categories.length; i++) {
-    var amount;
-
+  categories.forEach((cat, i) => {
+    let annual;
     if (i < categories.length - 1) {
-      amount = Math.round(total * categories[i].pct);
-      runningTotal += amount;
+      annual = Math.round(total * cat.pct);
+      runningTotal += annual;
     } else {
-      // last category absorbs rounding difference
-      amount = total - runningTotal;
+      annual = total - runningTotal;
     }
 
-    var item = document.createElement("li");
-    item.innerHTML = "<strong>" + categories[i].name + ":</strong> $" + amount;
-    list.appendChild(item);
-  }
+    const monthly = Math.round((annual / 12) * 100) / 100;
+    const avgMonthly = Math.round((cat.annualResident / 12) * 100) / 100;
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${cat.name}:</strong>
+      $${annual} per year (~$${monthly}/month)
+      <br>
+      <span style="font-size:0.85em;">
+      Average resident cost: ~$${avgMonthly}/month
+      </span>
+    `;
+    list.appendChild(li);
+  });
 
   resultsDiv.appendChild(list);
 
-  var note = document.createElement("p");
+  const note = document.createElement("p");
   note.style.fontSize = "0.9em";
-  note.innerHTML =
-    "<em>Note:</em> These amounts are estimates shown in whole dollars. " +
-    "Small rounding differences are handled by adjusting the final category so " +
-    "the total always matches the amount you entered.";
+  note.innerHTML = "<em>This comparison helps show whether your contribution is above or below the citywide average. Amounts are estimates.</em>";
   resultsDiv.appendChild(note);
 }
 </script>
+
 </body>
 </html>
+``
