@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Where Your City Property Taxes Go (FY26)</title>
+  <title>Your City Services Receipt (FY26)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,30 +16,27 @@
 
 <hr>
 
-<h1>Where Your City Property Taxes Go (FY26)</h1>
+<h1>Your City Services Receipt (FY26)</h1>
 
 <p>
-<span style="font-size: 1.05em;">
-<strong>A civic service receipt.</strong>  
-Use your property tax payment as a reference to understand how the City of
-Marshalltown’s overall spending is divided across public services.
-</span>
+<strong>A resident‑built estimate</strong> to help you understand what city services
+cost overall — and how your property tax contribution fits into that system.
 </p>
 
 <p style="font-size: 0.9em;">
-FY26 adopted budget · Approved April&nbsp;28,&nbsp;2025 · Version&nbsp;0.7
+FY26 adopted budget · Approved April&nbsp;28,&nbsp;2025 · Version&nbsp;0.8
 </p>
 
 <hr>
 
 <!-- ================= CALCULATOR ================= -->
 
-<h2>Estimate your service receipt</h2>
+<h2>Estimate your receipt</h2>
 
 <p>
 <strong>Estimated annual property tax paid ($)</strong><br>
 <span style="font-size: 0.9em;">
-Governmental Activities only (utilities and enterprise funds are excluded)
+Used as a reference amount to illustrate citywide service costs
 </span>
 </p>
 
@@ -58,107 +55,107 @@ Governmental Activities only (utilities and enterprise funds are excluded)
 
 <div id="results"></div>
 
-<!-- ================= EXPLANATION ================= -->
-
 <hr>
 
-<h2>What this estimate represents</h2>
+<!-- ================= INTERPRETATION ================= -->
+
+<h2>How to read this</h2>
 
 <p>
-This tool does <strong>not</strong> trace individual tax dollars to specific services.
-City revenues are pooled and legally restricted, so direct attribution does not exist
-in the adopted budget.
+City revenues (including property taxes, fees, and state or federal funds)
+are pooled and governed by legal restrictions. Because of this, individual
+tax dollars are <strong>not tracked</strong> to specific services.
 </p>
 
 <p>
-Instead, your property tax payment is used as a <strong>reference amount</strong> and
-applied proportionally across spending categories based on their share of
-total <em>Governmental Activities</em> spending.
+This tool uses your property tax payment as a <strong>reference amount</strong> and
+applies the same proportions the City uses to report <em>total Governmental
+Activities spending</em>. It shows how your contribution compares to the
+<strong>scale of services provided citywide</strong>.
 </p>
 
 <p style="font-size: 0.9em;">
 <em>
-Amounts are shown in whole dollars. Small rounding differences are handled by adjusting
-the final category so totals always match the amount entered.
+Results are shown in whole dollars. Small rounding differences are handled by
+adjusting the final category so totals always match the amount entered.
 </em>
 </p>
 
 <hr>
 
-<!-- ================= LAYER 2: CITY DELIVERY ================= -->
+<!-- ================= LAYER 2: SERVICE COSTS ================= -->
 
 <h2>What the City delivered in FY26</h2>
 
 <p>
-Below is a snapshot of what major service areas cost the City as a whole.
-This provides context for understanding the scale of services residents
-receive citywide, regardless of funding source.
+The figures below show the <strong>total cost</strong> of major city service areas
+in FY26, along with an approximate <strong>cost per resident</strong>.
+Population used: 27,886 residents (U.S. Census 2024 estimate).
 </p>
 
 <h3>Public Safety</h3>
 <p>
-Citywide cost: ~<strong>$13.3 million</strong><br>
-Includes police, fire, emergency response, inspections, and related safety services.
+Total cost: ~$13.3 million<br>
+Approx. cost per resident: ~$480
 </p>
 
 <h3>Public Works</h3>
 <p>
-Citywide cost: ~<strong>$11.9 million</strong><br>
-Includes streets, sidewalks, stormwater systems, snow removal, and infrastructure.
+Total cost: ~$11.9 million<br>
+Approx. cost per resident: ~$430
 </p>
 
 <h3>Health &amp; Social Services</h3>
 <p>
-Citywide cost: ~<strong>$2.0 million</strong><br>
-Public and environmental health functions and limited social service programs.
+Total cost: ~$2.0 million<br>
+Approx. cost per resident: ~$70
 </p>
 
 <h3>Culture &amp; Recreation</h3>
 <p>
-Citywide cost: ~<strong>$3.9 million</strong><br>
-Parks, recreation programs, library services, and cultural amenities.
+Total cost: ~$3.9 million<br>
+Approx. cost per resident: ~$140
 </p>
 
 <h3>Community &amp; Economic Development</h3>
 <p>
-Citywide cost: ~<strong>$3.9 million</strong><br>
-Planning, housing-related activities, and economic development efforts.
+Total cost: ~$3.9 million<br>
+Approx. cost per resident: ~$140
 </p>
 
 <h3>General Government</h3>
 <p>
-Citywide cost: ~<strong>$2.2 million</strong><br>
-Governance, finance, legal services, elections, and administration.
+Total cost: ~$2.2 million<br>
+Approx. cost per resident: ~$80
 </p>
 
 <h3>Debt Service</h3>
 <p>
-Citywide cost: ~<strong>$6.7 million</strong><br>
-Principal and interest payments on existing city debt.
+Total cost: ~$6.7 million<br>
+Approx. cost per resident: ~$240
 </p>
 
 <h3>Capital Projects</h3>
 <p>
-Citywide cost: ~<strong>$15.9 million</strong><br>
-Construction, major repairs, and long-term investments in public facilities.
+Total cost: ~$15.9 million<br>
+Approx. cost per resident: ~$570
 </p>
 
 <p style="font-size: 0.9em;">
 <em>
-Figures are rounded and shown for context. Categories group many services and
+Costs are rounded and shown for context. Categories group many services and
 are not exhaustive.
 </em>
 </p>
 
 <hr>
 
-<!-- ================= LINKS ================= -->
-
 <p>
 Learn more:
 <a href="sources.html">sources & methodology</a> |
 <a href="about.html">about this site</a>
 </p>
+
 <script>
 function calculateBreakdown() {
   var input = document.getElementById("taxInput").value;
