@@ -173,17 +173,10 @@ function calculateBreakdown() {
      STEP 1: Estimate City share
      =============================== */
 
-  /*
-    IMPORTANT:
-    This is an estimated City portion of a total property tax bill.
-    It is intentionally conservative and easy to replace later
-    once levy breakdowns are refined.
-  */
-
-  const ESTIMATED_CITY_SHARE = 0.30; // 30% estimate (clearly labeled on page)
-
+  const ESTIMATED_CITY_SHARE = 0.30; // clearly labeled estimate
   const cityShareAnnual = Math.round(totalTaxPaid * ESTIMATED_CITY_SHARE);
   const cityShareMonthly = Math.round((cityShareAnnual / 12) * 100) / 100;
+  const notCityPortion = totalTaxPaid - cityShareAnnual;
 
   /* ===============================
      STEP 2: City service model
@@ -201,22 +194,30 @@ function calculateBreakdown() {
   ];
 
   /* ===============================
-     STEP 3: Build results display
+     STEP 3: Build 3‑block output
      =============================== */
 
   const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = `
-    <h3>Your estimated City services receipt</h3>
-    <p>
-      <strong>Estimated City portion:</strong>
-      $${cityShareAnnual} per year (~$${cityShareMonthly}/month)
-    </p>
-    <p style="font-size:0.9em;">
-      This is an estimate based on City levy totals.
-    </p>
+  resultsDiv.innerHTML = "<h3>Your City Services Receipt</h3>";
+
+  /* ---- Block 1: Split of payment ---- */
+  resultsDiv.innerHTML += `
+    <h4>1) How your property tax payment is split</h4>
+    <ul>
+      <li><strong>Total property tax paid:</strong> $${totalTaxPaid}</li>
+      <li><strong>Estimated City portion:</strong> $${cityShareAnnual} per year (~$${cityShareMonthly}/month)</li>
+      <li><strong>Not included in this receipt:</strong> $${notCityPortion}
+        <br><span style="font-size:0.85em;">Schools, County, Community College, and other local levies</span>
+      </li>
+    </ul>
   `;
 
-  const list = document.createElement("ul");
+  /* ---- Block 2: Allocation of City portion ---- */
+  resultsDiv.innerHTML += `
+    <h4>2) How the City portion is allocated</h4>
+  `;
+
+  const allocationList = document.createElement("ul");
   let runningTotal = 0;
 
   categories.forEach((cat, index) => {
@@ -226,35 +227,53 @@ function calculateBreakdown() {
       annual = Math.round(cityShareAnnual * cat.pct);
       runningTotal += annual;
     } else {
-      // absorb rounding difference
-      annual = cityShareAnnual - runningTotal;
+      annual = cityShareAnnual - runningTotal; // rounding fix
     }
 
     const monthly = Math.round((annual / 12) * 100) / 100;
+
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${cat.name}:</strong> $${annual}/year (~$${monthly}/month)`;
+    allocationList.appendChild(li);
+
+    // store calculated values for next block
+    cat.userAnnual = annual;
+    cat.userMonthly = monthly;
+  });
+
+  resultsDiv.appendChild(allocationList);
+
+  /* ---- Block 3: Cost comparison ---- */
+  resultsDiv.innerHTML += `
+    <h4>3) What City services actually cost</h4>
+    <p style="font-size:0.9em;">
+      This compares your estimated contribution to the average City cost per resident.
+    </p>
+  `;
+
+  const comparisonList = document.createElement("ul");
+
+  categories.forEach(cat => {
     const avgMonthly = Math.round((cat.avgAnnual / 12) * 100) / 100;
 
     const li = document.createElement("li");
     li.innerHTML = `
-      <strong>${cat.name}:</strong>
-      $${annual} per year (~$${monthly}/month)<br>
-      <span style="font-size:0.85em;">
-        Average City service cost: ~$${avgMonthly}/month
-      </span>
+      <strong>${cat.name}</strong><br>
+      Your contribution: ~$${cat.userMonthly}/month<br>
+      Average City cost per resident: ~$${avgMonthly}/month
     `;
-    list.appendChild(li);
+    comparisonList.appendChild(li);
   });
 
-  resultsDiv.appendChild(list);
+  resultsDiv.appendChild(comparisonList);
 
-  const note = document.createElement("p");
-  note.style.fontSize = "0.9em";
-  note.innerHTML = `
-    <em>
-      This comparison helps show whether your contribution to City services
-      is below, near, or above the citywide average.
-    </em>
+  resultsDiv.innerHTML += `
+    <p style="font-size:0.9em;"><em>
+      City services are funded through a mix of property taxes, fees, grants,
+      and other sources. This receipt shows how your City portion compares
+      to the cost of providing services citywide.
+    </em></p>
   `;
-  resultsDiv.appendChild(note);
 }
 </script>
 
