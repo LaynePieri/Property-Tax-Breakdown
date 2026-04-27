@@ -162,50 +162,83 @@ Learn more:
 
 <script>
 function calculateBreakdown() {
-  const total = Number(document.getElementById("taxInput").value);
-  if (!total || total <= 0) {
+  const totalTaxPaid = Number(document.getElementById("taxInput").value);
+
+  if (!totalTaxPaid || totalTaxPaid <= 0) {
     alert("Please enter a positive dollar amount.");
     return;
   }
 
-  const population = 27886;
+  /* ===============================
+     STEP 1: Estimate City share
+     =============================== */
+
+  /*
+    IMPORTANT:
+    This is an estimated City portion of a total property tax bill.
+    It is intentionally conservative and easy to replace later
+    once levy breakdowns are refined.
+  */
+
+  const ESTIMATED_CITY_SHARE = 0.30; // 30% estimate (clearly labeled on page)
+
+  const cityShareAnnual = Math.round(totalTaxPaid * ESTIMATED_CITY_SHARE);
+  const cityShareMonthly = Math.round((cityShareAnnual / 12) * 100) / 100;
+
+  /* ===============================
+     STEP 2: City service model
+     =============================== */
 
   const categories = [
-    { name: "Public Safety", pct: 0.2030, annualResident: 480 },
-    { name: "Public Works", pct: 0.0965, annualResident: 430 },
-    { name: "Health & Social Services", pct: 0.0383, annualResident: 70 },
-    { name: "Culture & Recreation", pct: 0.0767, annualResident: 140 },
-    { name: "Community & Economic Development", pct: 0.0749, annualResident: 140 },
-    { name: "General Government", pct: 0.0346, annualResident: 80 },
-    { name: "Debt Service", pct: 0.1162, annualResident: 240 },
-    { name: "Capital Projects", pct: 0.3598, annualResident: 570 }
+    { name: "Public Safety", pct: 0.2030, avgAnnual: 480 },
+    { name: "Public Works", pct: 0.0965, avgAnnual: 430 },
+    { name: "Health & Social Services", pct: 0.0383, avgAnnual: 70 },
+    { name: "Culture & Recreation", pct: 0.0767, avgAnnual: 140 },
+    { name: "Community & Economic Development", pct: 0.0749, avgAnnual: 140 },
+    { name: "General Government", pct: 0.0346, avgAnnual: 80 },
+    { name: "Debt Service", pct: 0.1162, avgAnnual: 240 },
+    { name: "Capital Projects", pct: 0.3598, avgAnnual: 570 }
   ];
 
+  /* ===============================
+     STEP 3: Build results display
+     =============================== */
+
   const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "<h3>Your estimated receipt</h3>";
+  resultsDiv.innerHTML = `
+    <h3>Your estimated City services receipt</h3>
+    <p>
+      <strong>Estimated City portion:</strong>
+      $${cityShareAnnual} per year (~$${cityShareMonthly}/month)
+    </p>
+    <p style="font-size:0.9em;">
+      This is an estimate based on City levy totals.
+    </p>
+  `;
 
-  let runningTotal = 0;
   const list = document.createElement("ul");
+  let runningTotal = 0;
 
-  categories.forEach((cat, i) => {
+  categories.forEach((cat, index) => {
     let annual;
-    if (i < categories.length - 1) {
-      annual = Math.round(total * cat.pct);
+
+    if (index < categories.length - 1) {
+      annual = Math.round(cityShareAnnual * cat.pct);
       runningTotal += annual;
     } else {
-      annual = total - runningTotal;
+      // absorb rounding difference
+      annual = cityShareAnnual - runningTotal;
     }
 
     const monthly = Math.round((annual / 12) * 100) / 100;
-    const avgMonthly = Math.round((cat.annualResident / 12) * 100) / 100;
+    const avgMonthly = Math.round((cat.avgAnnual / 12) * 100) / 100;
 
     const li = document.createElement("li");
     li.innerHTML = `
       <strong>${cat.name}:</strong>
-      $${annual} per year (~$${monthly}/month)
-      <br>
+      $${annual} per year (~$${monthly}/month)<br>
       <span style="font-size:0.85em;">
-      Average resident cost: ~$${avgMonthly}/month
+        Average City service cost: ~$${avgMonthly}/month
       </span>
     `;
     list.appendChild(li);
@@ -215,7 +248,12 @@ function calculateBreakdown() {
 
   const note = document.createElement("p");
   note.style.fontSize = "0.9em";
-  note.innerHTML = "<em>This comparison helps show whether your contribution is above or below the citywide average. Amounts are estimates.</em>";
+  note.innerHTML = `
+    <em>
+      This comparison helps show whether your contribution to City services
+      is below, near, or above the citywide average.
+    </em>
+  `;
   resultsDiv.appendChild(note);
 }
 </script>
