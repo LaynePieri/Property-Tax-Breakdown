@@ -19,22 +19,24 @@
 <h1>Your City Services Receipt (FY26)</h1>
 
 <p>
-<strong>A plain‑language breakdown of City of Marshalltown services.</strong><br>
-This page shows what the City actually receives from property taxes and
-what it costs to provide City services.
+  <strong>A plain‑language breakdown of City of Marshalltown services.</strong><br>
+  This page shows what the City actually receives from property taxes and
+  what it costs to provide City services.
 </p>
 
 <p style="font-size:0.9em;">
-Based on certified Marshall County tax rates (Taxes Payable FY2025–2026)
+  Based on certified Marshall County tax rates (Taxes Payable FY2025–2026)
 </p>
 
 <hr>
 
 <h2>Start with what you paid</h2>
 
-<p>
-<strong>Total property tax paid (all local governments)</strong>
-</p>
+<label for="taxInput">
+  <strong>Total property tax paid (all local governments)</strong>
+</label>
+
+<br>
 
 <input
   type="number"
@@ -45,10 +47,12 @@ Based on certified Marshall County tax rates (Taxes Payable FY2025–2026)
 >
 
 <p>
-<strong>School district</strong><br>
-<span style="font-size:0.9em;">
-School district affects how your property tax bill is divided.
-</span>
+  <label for="schoolDistrict">
+    <strong>School district</strong>
+  </label><br>
+  <span style="font-size:0.9em;">
+    School district affects how your property tax bill is divided.
+  </span>
 </p>
 
 <select id="schoolDistrict">
@@ -73,8 +77,8 @@ School district affects how your property tax bill is divided.
 <h2>How school district affects City share</h2>
 
 <p>
-The City levy is the same throughout Marshalltown.
-Differences below are driven by school district tax rates.
+  The City levy is the same throughout Marshalltown.
+  Differences below are driven by school district tax rates.
 </p>
 
 <table border="1" cellpadding="6" cellspacing="0">
@@ -93,17 +97,17 @@ Differences below are driven by school district tax rates.
 </table>
 
 <p style="font-size:0.9em;">
-<em>
-Actual shares vary by location and tax year. Rates shown are county‑certified.
-</em>
+  <em>
+    Actual shares vary by location and tax year. Rates shown are county‑certified.
+  </em>
 </p>
 
 <hr>
 
 <p>
-Learn more:
-<a href="sources.html">sources & methodology</a> |
-<a href="about.html">about this site</a>
+  Learn more:
+  <a href="sources.html">sources &amp; methodology</a> |
+  <a href="about.html">about this site</a>
 </p>
 
 <script>
@@ -115,7 +119,7 @@ const levyData = {
   MCSD: { cityRate: 16.000, totalRate: 40.726 },
   EM:   { cityRate: 16.000, totalRate: 34.610 },
   WM:   { cityRate: 16.000, totalRate: 34.931 },
-  BCLUW:{ cityRate: 16.000, totalRate: 33.000 }, // mid‑range, refine later
+  BCLUW:{ cityRate: 16.000, totalRate: 33.000 },
   GMG:  { cityRate: 16.000, totalRate: 29.000 },
   GR:   { cityRate: 16.000, totalRate: 31.000 }
 };
@@ -135,10 +139,6 @@ const categories = [
   { name: "Capital Projects", pct: 0.3598, avgAnnual: 570 }
 ];
 
-/* ===============================
-   CALCULATOR
-   =============================== */
-
 function calculateBreakdown() {
   const totalPaid = Number(document.getElementById("taxInput").value);
   if (!totalPaid || totalPaid <= 0) {
@@ -156,7 +156,6 @@ function calculateBreakdown() {
   const results = document.getElementById("results");
   results.innerHTML = "<h3>Your City Services Receipt</h3>";
 
-  /* BLOCK 1 */
   results.innerHTML += `
     <h4>1) How your payment is split</h4>
     <ul>
@@ -168,7 +167,6 @@ function calculateBreakdown() {
     </ul>
   `;
 
-  /* BLOCK 2 */
   results.innerHTML += `<h4>2) How the City portion is allocated</h4>`;
   let running = 0;
   const allocList = document.createElement("ul");
@@ -185,7 +183,6 @@ function calculateBreakdown() {
 
   results.appendChild(allocList);
 
-  /* BLOCK 3 */
   results.innerHTML += `<h4>3) What City services actually cost</h4>`;
   const compareList = document.createElement("ul");
 
