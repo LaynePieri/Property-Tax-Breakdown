@@ -3,12 +3,21 @@
 This project is a plain‑language, city‑only property tax explainer for
 Marshalltown, Iowa.
 
-It is designed to help residents understand:
-- how much of a property tax bill actually goes to the City,
+It is part of a broader effort to make local government systems
+understandable to residents using publicly available data and
+plain language.
+
+The goal is civic legibility — helping residents see how local
+structures actually work — rather than advocating for specific
+policies or outcomes.
+
+## What this tool helps residents understand
+
+- how much of a total property tax bill goes to the City,
 - how that amount differs by school district,
 - and what City services cost at a citywide level.
 
-The tool is intentionally descriptive rather than prescriptive.
+The tool is intentionally **descriptive rather than prescriptive**.
 It does not recommend policies, budgets, or tax levels.
 
 ## Data Sources
@@ -31,18 +40,21 @@ Not included:
 - Utility or enterprise funds (water, sewer, electric)
 - Grant‑restricted revenues
 - Department‑ or project‑level detail
-- Property‑specific tax situations
+- Property‑specific tax situations, exemptions, or credits
 
 ## Status
 
-This project is a standalone, static site.
+This project is an early‑stage pilot.
+
+It is deployed as a standalone, static site.
 No backend services or user data are involved.
 
 Future changes may refine inputs or presentation, but the core intent
 is to keep the tool readable, verifiable, and resident‑focused.
 
-## Author
+## Author & Independence
 
 Created by Layne Pieri, resident of Marshalltown.
 
-This project is not affiliated with the City of Marshalltown.
+This project is not affiliated with the City of Marshalltown or any
+political campaign.
